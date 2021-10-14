@@ -28,7 +28,7 @@ resource "google_storage_bucket_object" "archive" {
 
 resource "google_cloudfunctions_function" "function" {
   name        = "terraform-cloud-function-email"
-  description = "An example Cloud Function that is triggered by a Cloud Schedule.1"
+  description = "An example Cloud Function that is triggered by a Cloud Schedule.2"
   runtime     = "python37"
 
 
