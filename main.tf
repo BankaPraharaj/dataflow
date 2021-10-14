@@ -16,29 +16,6 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "my-bucket" {
-  name = "my_terraform_bucket_banka_email"
+  name = "my_terraform_bucket_2"
 }
 
-# This will copy my source file (zip format) from local directory and paste it inside the bucket
-resource "google_storage_bucket_object" "archive" {
-  name   = "main.zip"
-  bucket = "${google_storage_bucket.my-bucket.name}"
-  source = "/Users/bankapraharaj/Documents/GCP/practice/terraform/cloudfunctionemail/src/main.zip"
-}
-
-resource "google_cloudfunctions_function" "function" {
-  name        = "terraform-cloud-function-email"
-  description = "An example Cloud Function that is triggered by a Cloud Schedule.2"
-  runtime     = "python37"
-
-
-  available_memory_mb   = 128
-  source_archive_bucket = "${google_storage_bucket.my-bucket.name}"
-  source_archive_object = "${google_storage_bucket_object.archive.name}"
-  entry_point           = "hello_pubsub" # This is the name of the function that will be executed in your Python code
-
-  event_trigger {
-    event_type = "google.pubsub.topic.publish"
-    resource = "dataflow-fail2"  # interpolation referencing
-  }
-}
